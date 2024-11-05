@@ -1,15 +1,13 @@
-/**
- * @file RenderAPIFactory.h
- * @brief Define la clase RenderAPIFactory para la creación de diferentes APIs de renderizado.
- */
-
 #pragma once
+#include "IRenderAPI.h"
+#include <memory>
 
- /**
-  * @class RenderAPIFactory
-  * @brief Clase para la creación de instancias de APIs de renderizado, como DirectX o OpenGL.
-  */
-class RenderAPIFactory
-{
-    // Definición futura de métodos y miembros para RenderAPIFactory.
+enum class RenderAPIType {
+    DirectX12,
+    // Otras APIs pueden añadirse aquí, como OpenGL, Vulkan, etc.
+};
+
+class RenderAPIFactory {
+public:
+    static std::unique_ptr<IRenderAPI> CreateRenderAPI(RenderAPIType apiType);
 };

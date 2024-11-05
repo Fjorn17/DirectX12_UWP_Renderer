@@ -11,7 +11,7 @@ namespace Mythforge.Editor
         private static extern IntPtr CreateRenderer();
 
         [DllImport("Mythforge.Renderer.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void Initialize(IntPtr renderer, IntPtr hwnd);
+        private static extern void InitializeRenderer(IntPtr renderer, IntPtr hwnd);
 
         [DllImport("Mythforge.Renderer.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void RenderFrame(IntPtr renderer);
@@ -30,7 +30,7 @@ namespace Mythforge.Editor
 
         public void Initialize(IntPtr hwnd)
         {
-            Initialize(rendererInstance, hwnd);
+            InitializeRenderer(rendererInstance, hwnd);
         }
 
         public void Render()
