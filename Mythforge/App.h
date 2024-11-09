@@ -2,6 +2,9 @@
 
 #include "pch.h"
 #include "Renderer.h"
+#include "Cube.h"
+
+using namespace DirectX;
 
 namespace Mythforge
 {
@@ -32,6 +35,12 @@ namespace Mythforge
 		bool m_windowClosed;
 		bool m_windowVisible;
 		std::shared_ptr<Renderer> renderer;
+
+		std::shared_ptr<Cube> cube;
+
+		XMVECTOR cameraPos = {0.0f, 0.0f, -5.0f};
+		XMVECTOR cameraFw = { 0.0f, 0.0f, 1.0f, 0.0f };
+		XMVECTOR up = { 0.0f, 1.0f, 0.0f, 0.0f };
 	};
 }
 

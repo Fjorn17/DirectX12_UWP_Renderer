@@ -251,3 +251,40 @@ void Flush(ComPtr<ID3D12CommandQueue> commandQueue, ComPtr<ID3D12Fence> fence, U
     UINT64 fenceSignalValue = Signal(commandQueue, fence, fenceValue);
     WaitForFenceValue(fence, fenceSignalValue, fenceEvent);
 }
+
+void UpdateBufferResource(ComPtr<ID3D12Device2> device, ComPtr<ID3D12GraphicsCommandList2> commandList, ComPtr<ID3D12Resource>& pDestinationResource, ComPtr<ID3D12Resource>& pIntermediateResource, size_t numElements, size_t elementSize, const void* bufferData)
+{
+	size_t bufferSize = numElements * elementSize;
+
+	DX::ThrowIfFailed(device->CreateCommittedResource(
+		&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT),  // Heap Properties
+		D3D12_HEAP_FLAG_NONE,                               // Heap Flags
+		&CD3DX12_RESOURCE_DESC::Buffer(bufferSize, D3D12_RESOURCE_FLAG_NONE),                                      // Resource Description
+		D3D12_RESOURCE_STATE_COMMON,                        // Initial Resource State (no nullptr)
+		nullptr,                                            // Clear Value (null for buffers)
+		IID_PPV_ARGS(&pDestinationResource)));              // Output resource
+
+	NAME_D3D12_OBJECT(pDestinationResource);
+
+	if (bufferData)
+	{
+		DX::ThrowIfFailed(device->CreateCommittedResource(
+			&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD),  // Heap Properties
+			D3D12_HEAP_FLAG_NONE,                               // Heap Flags
+			&CD3DX12_RESOURCE_DESC::Buffer(bufferSize),                                      // Resource Description
+			D3D12_RESOURCE_STATE_GENERIC_READ,                        // Initial Resource State (no nullptr)
+			nullptr,                                            // Clear Value (null for buffers)
+			IID_PPV_ARGS(&pIntermediateResource)));
+
+		NAME_D3D12_OBJECT(pIntermediateResource);
+		D3D12_SUBRESOURCE_DATA subresourceData = {};
+		subresourceData.pData = bufferData;
+		subresourceData.RowPitch = bufferSize;
+		subresourceData.SlicePitch = subresourceData.RowPitch;
+
+		UpdateSubresources(commandList.Get(),
+			pDestinationResource.Get(), pIntermediateResource.Get(),
+			0, 0, 1, &subresourceData);
+	}
+
+}

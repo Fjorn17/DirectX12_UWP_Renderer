@@ -73,9 +73,10 @@ void Renderer::Destroy() {
 }
 
 void Renderer::UpdateViewportPerspective() {
-    float aspectRatio = static_cast<int>(window->Bounds.Width) / static_cast<int>(window->Bounds.Height);
+    float aspectRatio = window->Bounds.Width / window->Bounds.Height;
     scissorRect = { 0, 0, static_cast<LONG>(window->Bounds.Width), static_cast<LONG>(window->Bounds.Height) };
     screenViewport = { 0.0f, 0.0f, window->Bounds.Width, window->Bounds.Height, 0.0f, 1.0f };
+    perspectiveMatrix = XMMatrixPerspectiveFovRH(fovAngleY, aspectRatio, 0.01f, 100.0f);
 }
 
 void Renderer::Resize(UINT width, UINT height) {

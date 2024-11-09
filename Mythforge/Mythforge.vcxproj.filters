@@ -44,6 +44,18 @@
     <Filter Include="Math">
       <UniqueIdentifier>{f63b5deb-9436-4aee-bda9-cfa5bde152a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Primitives">
+      <UniqueIdentifier>{48fb190c-ae7f-4f51-9a98-6748e576ee57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{27f7bb1b-9723-4566-b484-d4223ab113df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\PixelShaders">
+      <UniqueIdentifier>{add9b6a9-520c-4a09-b2e8-ab11f624dea0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\VertexShaders">
+      <UniqueIdentifier>{ab785b37-1f9e-47d8-ad15-857b3bd1ae1b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
@@ -51,27 +63,16 @@
     <ClCompile Include="Source\Renderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Vertex.cpp">
-      <Filter>Renderer\Geometry</Filter>
-    </ClCompile>
     <ClCompile Include="Source\DeviceUtils.cpp">
       <Filter>Renderer\GraphicApi\DirectX12</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Mesh.cpp">
-      <Filter>Renderer\Geometry</Filter>
-    </ClCompile>
+    <ClCompile Include="Cube.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Source\Renderer.h">
       <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Triangle.h">
-      <Filter>Renderer\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Vertex.h">
-      <Filter>Renderer\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="Source\d3dx12.h">
       <Filter>Renderer\GraphicApi\DirectX12</Filter>
@@ -82,20 +83,29 @@
     <ClInclude Include="Source\DirectXHelper.h">
       <Filter>Renderer\GraphicApi\DirectX12</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Mesh.h">
-      <Filter>Renderer\Geometry</Filter>
-    </ClInclude>
     <ClInclude Include="Source\StepTimer.h">
       <Filter>Time</Filter>
     </ClInclude>
     <ClInclude Include="Source\Vector.h">
       <Filter>Math</Filter>
     </ClInclude>
+    <ClInclude Include="Source\VertexFormats.h">
+      <Filter>Renderer\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shaders\VertexShaders\Color.hlsl">
+      <Filter>Shaders\VertexShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\PixelShaders\Color.hlsl">
+      <Filter>Shaders\PixelShaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

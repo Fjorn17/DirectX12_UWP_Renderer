@@ -46,6 +46,7 @@ App::App() :
 void App::Run()
 {
 	auto Destroy = [this]() -> void {
+		cube->Destroy();
 		renderer->Destroy();
 	};
 
@@ -60,6 +61,13 @@ void App::Run()
 			PIXBeginEvent(renderer->commandQueue.Get(), 0, L"Render");
 			{
 				renderer->SetRenderTargets();
+
+				XMMATRIX view = XMMatrixLookToRH(cameraPos, cameraFw, up);
+				XMMATRIX viewProjection = XMMatrixMultiply(view, renderer->perspectiveMatrix);
+
+				cube->UpdateConstantBuffer(renderer->backBufferIndex, viewProjection);
+				cube->Render(renderer->commandList, renderer->backBufferIndex);
+
 				renderer->Present();
 			}
 			PIXEndEvent(renderer->commandQueue.Get());
@@ -104,7 +112,12 @@ void App::SetWindow(CoreWindow^ window)
 	renderer->Initialize(CoreWindow::GetForCurrentThread());
 
 	renderer->ResetCommands();
+
+	cube = std::make_shared<Cube>();
+	cube->Initialize(renderer->frameCount, renderer->d3dDevice, renderer->commandList);
+
 	renderer->CloseCommandsAndFlush();
+	cube->DestroyUploadResources();
 }
 
 // Controladores de eventos del ciclo de vida de la aplicación.
