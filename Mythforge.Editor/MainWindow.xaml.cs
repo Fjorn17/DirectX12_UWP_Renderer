@@ -6,102 +6,149 @@ using System.Windows.Media;
 namespace Mythforge.Editor
 {
     /// <summary>
-    /// Ventana principal que contiene y controla el ciclo de vida de la instancia de RendererWrapper.
+    /// Ventana principal que contiene el renderizador y la terminal de depuración.
     /// </summary>
-    public partial class MainWindow : Window, IDisposable
+    public partial class MainWindow : Window
     {
-        private bool disposed = false; // Indica si los recursos ya han sido liberados
-        private RendererWrapper renderer; // Instancia de RendererWrapper para administrar el renderizado DirectX
+        private RendererWrapper renderer; // Instancia del renderizador
+        private HwndSource hwndSource; // Fuente del hwnd para el rendererContainer
 
-        /// <summary>
-        /// Constructor que inicializa la ventana principal y sus eventos.
-        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
-            Loaded += MainWindow_Loaded;
-            Closed += MainWindow_Closed;
+            Loaded += MainWindow_Loaded; // Suscribirse al evento de carga de la ventana
+            Closed += MainWindow_Closed; // Suscribirse al evento de cierre de la ventana
+
+            // Suscribirse al evento SizeChanged del rendererContainer para ajustar el hwnd
+            rendererContainer.SizeChanged += RendererContainer_SizeChanged;
         }
 
         /// <summary>
-        /// Evento que se ejecuta al cargar la ventana. Configura el renderizador y el contexto de rendering.
+        /// Evento que maneja la carga de la ventana principal.
+        /// Inicializa el renderer y lo asocia con la interfaz.
         /// </summary>
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            // Obtener el identificador de la ventana para pasarlo al renderer
-            IntPtr hwnd = new WindowInteropHelper(this).Handle;
+            LogToDebugTerminal("Cargando la ventana principal...");
 
-            // Inicializar el renderer y asociarlo con el hwnd de esta ventana
-            renderer = new RendererWrapper();
-            renderer.Initialize(hwnd);
+            try
+            {
+                // Crear el hwnd para el rendererContainer
+                InitializeRendererContainerHwnd();
 
-            // Suscribirse al evento de renderizado continuo
-            CompositionTarget.Rendering += OnRendering;
+                LogToDebugTerminal("Renderizador inicializado correctamente.");
+
+                // Suscribirse al evento de renderizado
+                CompositionTarget.Rendering += OnRendering;
+            }
+            catch (Exception ex)
+            {
+                LogToDebugTerminal($"Error al inicializar el renderizador: {ex.Message}");
+            }
         }
 
         /// <summary>
-        /// Método de renderizado que se llama continuamente por el evento CompositionTarget.Rendering.
+        /// Método para inicializar el HwndSource y RendererWrapper para el rendererContainer.
+        /// </summary>
+        private void InitializeRendererContainerHwnd()
+        {
+            if (hwndSource != null)
+            {
+                hwndSource.Dispose();
+                hwndSource = null;
+            }
+
+            if (renderer != null)
+            {
+                renderer.Dispose();
+                renderer = null;
+            }
+
+            // Crear los parámetros del HwndSource para asociar con el rendererContainer
+            var parameters = new HwndSourceParameters("RendererContainer")
+            {
+                PositionX = 0,
+                PositionY = 0,
+                Height = (int)rendererContainer.ActualHeight,
+                Width = (int)rendererContainer.ActualWidth,
+                WindowStyle = (int)(WS_CHILD | WS_VISIBLE),
+                ParentWindow = new WindowInteropHelper(this).Handle
+            };
+
+            hwndSource = new HwndSource(parameters);
+            IntPtr hwnd = hwndSource.Handle;
+
+            // Inicializar el renderizador con el hwnd específico del rendererContainer
+            renderer = new RendererWrapper();
+            renderer.Initialize(hwnd);
+        }
+
+        /// <summary>
+        /// Método de renderizado que se llama continuamente para refrescar el renderizador.
         /// </summary>
         private void OnRendering(object sender, EventArgs e)
         {
-            try
+            if (renderer != null)
             {
-                if (renderer != null)
+                try
                 {
-                    renderer.Render(); // Ejecuta el renderizado en cada fotograma
+                    renderer.Render(); // Ejecutar el renderizado
                 }
-            }
-            catch (InvalidOperationException ex)
-            {
-                // Manejo de errores en el renderizado y salida del mensaje
-                Console.WriteLine(Mythforge.Editor.Properties.Resources.RenderErrorMessage + ex.Message);
-
-                // Desuscribirse del evento si ocurre una excepción
-                CompositionTarget.Rendering -= OnRendering;
+                catch (InvalidOperationException ex)
+                {
+                    LogToDebugTerminal($"Error de renderizado: {ex.Message}");
+                }
             }
         }
 
         /// <summary>
-        /// Evento que se ejecuta al cerrar la ventana para asegurar que se liberen los recursos.
+        /// Evento que maneja el cambio de tamaño del rendererContainer.
+        /// </summary>
+        private void RendererContainer_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            // Re-inicializar el renderizador con el nuevo tamaño del rendererContainer
+            InitializeRendererContainerHwnd();
+        }
+
+        /// <summary>
+        /// Evento que maneja el cierre de la ventana principal.
+        /// Asegura que se liberen los recursos del renderizador.
         /// </summary>
         private void MainWindow_Closed(object sender, EventArgs e)
         {
-            Dispose(); // Llama a Dispose cuando se cierra la ventana
-        }
-
-        /// <summary>
-        /// Implementación de Dispose para liberar recursos no administrados.
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this); // Evita la finalización por el recolector de basura
-        }
-
-        /// <summary>
-        /// Libera los recursos gestionados y no gestionados.
-        /// </summary>
-        /// <param name="disposing">True si se llama desde Dispose, false si se llama desde el finalizador.</param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposed)
+            if (renderer != null)
             {
-                if (disposing)
-                {
-                    // Libera el renderer si se ha inicializado
-                    renderer?.Dispose();
-                    renderer = null;
-                }
-                disposed = true;
+                LogToDebugTerminal("Cerrando el renderizador y liberando recursos...");
+                renderer.Dispose();
+                renderer = null;
+            }
+
+            if (hwndSource != null)
+            {
+                hwndSource.Dispose();
+                hwndSource = null;
             }
         }
 
         /// <summary>
-        /// Destructor de la ventana principal que asegura la liberación de recursos.
+        /// Método para escribir mensajes en la terminal de depuración (RichTextBox).
         /// </summary>
-        ~MainWindow()
+        /// <param name="message">Mensaje que se escribirá en la terminal.</param>
+        private void LogToDebugTerminal(string message)
         {
-            Dispose(false);
+            // Asegurarse de que la operación se ejecute en el hilo de la interfaz de usuario.
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                if (debugTerminal != null)
+                {
+                    debugTerminal.AppendText($"{DateTime.Now:HH:mm:ss} - {message}{Environment.NewLine}");
+                    debugTerminal.ScrollToEnd(); // Asegura que siempre se vea la última línea
+                }
+            });
         }
+
+        // Constantes usadas para crear la ventana hijo
+        private const int WS_CHILD = 0x40000000;
+        private const int WS_VISIBLE = 0x10000000;
     }
 }

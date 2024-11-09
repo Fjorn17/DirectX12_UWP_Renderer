@@ -5,6 +5,9 @@
 
 #pragma once
 #include "IRenderAPI.h"
+#include "framework.h"
+#include "Vector.h"
+#include "Mesh.h"
 #include <memory>
 
  /**
@@ -34,6 +37,7 @@ public:
      * @param height Alto de la ventana.
      */
     void Resize(int width, int height);
+
 
 private:
     std::unique_ptr<IRenderAPI> renderAPI; ///< Instancia de la API de renderizado utilizada.

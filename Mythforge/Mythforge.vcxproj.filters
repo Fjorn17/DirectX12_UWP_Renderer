@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Activos">
+      <UniqueIdentifier>aa9ad323-7a60-4cf8-aafb-823b9e0b5775</UniqueIdentifier>
+      <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
+    </Filter>
+    <Image Include="Assets\LockScreenLogo.scale-200.png">
+      <Filter>Activos</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-200.png">
+      <Filter>Activos</Filter>
+    </Image>
+    <Image Include="Assets\Square150x150Logo.scale-200.png">
+      <Filter>Activos</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.scale-200.png">
+      <Filter>Activos</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <Filter>Activos</Filter>
+    </Image>
+    <Image Include="Assets\StoreLogo.png">
+      <Filter>Activos</Filter>
+    </Image>
+    <Image Include="Assets\Wide310x150Logo.scale-200.png">
+      <Filter>Activos</Filter>
+    </Image>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{cb357796-9ebe-49bd-864c-7198541c4adf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Geometry">
+      <UniqueIdentifier>{7d91fc55-7052-45d1-9412-c325db1d74d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\GraphicApi">
+      <UniqueIdentifier>{43ccb8fa-fef8-44f0-8ceb-c3e35be10b89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\GraphicApi\DirectX12">
+      <UniqueIdentifier>{23edc273-1693-4b3f-afd5-26591c3618b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Time">
+      <UniqueIdentifier>{d07c891d-dd49-4cfb-8d1f-411b099ac33d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{f63b5deb-9436-4aee-bda9-cfa5bde152a6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="App.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Source\Renderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Vertex.cpp">
+      <Filter>Renderer\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DeviceUtils.cpp">
+      <Filter>Renderer\GraphicApi\DirectX12</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Mesh.cpp">
+      <Filter>Renderer\Geometry</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="App.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Source\Renderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Triangle.h">
+      <Filter>Renderer\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Vertex.h">
+      <Filter>Renderer\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\d3dx12.h">
+      <Filter>Renderer\GraphicApi\DirectX12</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DeviceUtils.h">
+      <Filter>Renderer\GraphicApi\DirectX12</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DirectXHelper.h">
+      <Filter>Renderer\GraphicApi\DirectX12</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Mesh.h">
+      <Filter>Renderer\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StepTimer.h">
+      <Filter>Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Vector.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

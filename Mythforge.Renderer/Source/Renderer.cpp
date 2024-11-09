@@ -15,6 +15,9 @@
   */
 Renderer::Renderer() {
     renderAPI = RenderAPIFactory::CreateRenderAPI(RenderAPIType::DirectX12); // Selecciona DirectX12 como ejemplo
+    if (!renderAPI) {
+        throw std::runtime_error("No se pudo crear la instancia de RenderAPI.");
+    }
 }
 
 /**
@@ -24,7 +27,8 @@ Renderer::Renderer() {
  */
 Renderer::~Renderer() {
     if (renderAPI) {
-        renderAPI->CleanUp();
+        renderAPI->Destroy(); // Libera los recursos de la API de renderizado
+        renderAPI.reset();
     }
 }
 
@@ -33,14 +37,30 @@ Renderer::~Renderer() {
  * @param hwnd Handle de la ventana donde se renderizará.
  */
 void Renderer::Initialize(HWND hwnd) {
-    renderAPI->Initialize(hwnd);
+    if (renderAPI) {
+        renderAPI->Initialize(hwnd);
+    }
 }
 
 /**
  * @brief Renderiza un fotograma utilizando la API de renderizado seleccionada.
  */
 void Renderer::RenderFrame() {
-    renderAPI->RenderFrame();
+    std::cerr << "ERROR antes de ResetCommands" << std::endl;
+    if (renderAPI) {
+        renderAPI->ResetCommands();
+        std::cerr << "ERROR después de ResetCommands" << std::endl;
+
+        std::cerr << "ERROR antes de SetRenderTargets" << std::endl;
+        renderAPI->SetRenderTargets();
+        std::cerr << "ERROR después de SetRenderTargets" << std::endl;
+
+        // Otros comandos de renderizado, si los hubiera
+
+        std::cerr << "ERROR antes de Present" << std::endl;
+        renderAPI->Present();
+        std::cerr << "ERROR después de Present" << std::endl;
+    }
 }
 
 /**
@@ -49,7 +69,9 @@ void Renderer::RenderFrame() {
  * @param height Alto de la ventana.
  */
 void Renderer::Resize(int width, int height) {
-    renderAPI->Resize(width, height);
+    if (renderAPI) {
+        renderAPI->Resize(width, height);
+    }
 }
 
 /**

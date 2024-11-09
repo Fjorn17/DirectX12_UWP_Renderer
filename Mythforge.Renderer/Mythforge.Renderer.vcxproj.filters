@@ -1,60 +1,131 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Archivos de origen">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Source">
+      <UniqueIdentifier>{9034d29f-7318-41ed-93bc-62d66c4ddb81}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado">
+    <Filter Include="Source\Public">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Archivos de recursos">
+    <Filter Include="Source\Private">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resources">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source\pch">
+      <UniqueIdentifier>{90dcb678-b4db-4893-881c-2af3e24f7681}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Public\Math">
+      <UniqueIdentifier>{b6f8f02d-d26f-4e34-9f7e-c0ae4b6b0b16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Public\Geometry">
+      <UniqueIdentifier>{097e6d7d-a40d-4e48-8904-e7fd3cd78bf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Private\Math">
+      <UniqueIdentifier>{52adb90d-6c68-468a-bafb-2ed1f0edbb33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Private\Geometry">
+      <UniqueIdentifier>{34fee114-fe8e-461e-9955-ae985d36fa52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Private\RenderAPI">
+      <UniqueIdentifier>{abf038a1-de27-41a8-b22e-dcdcf9afe4a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Private\RenderAPI\DirectX12">
+      <UniqueIdentifier>{2c50ab6c-9b55-4d4a-a4c9-8ca723bce38a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Public\RenderAPI">
+      <UniqueIdentifier>{d808d2bf-fc59-4144-b68f-5bb4104e57ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Public\RenderAPI\DirectX12">
+      <UniqueIdentifier>{1d0ec07b-bc98-48ed-baf2-f440ba5c2051}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{bd91fe7e-64c7-456b-9672-532ac72a0aff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="Source\framework.h">
+      <Filter>Source\Public</Filter>
     </ClInclude>
-    <ClInclude Include="framework.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="Source\Renderer.h">
+      <Filter>Source\Public</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="Source\pch.h">
+      <Filter>Source\pch</Filter>
     </ClInclude>
-    <ClInclude Include="IRenderAPI.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="Source\IRenderAPI.h">
+      <Filter>Source\Public\RenderAPI</Filter>
     </ClInclude>
-    <ClInclude Include="DirectX12RendererAPI.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="Source\RenderAPIFactory.h">
+      <Filter>Source\Public\RenderAPI</Filter>
     </ClInclude>
-    <ClInclude Include="RenderAPIFactory.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="Source\d3dx12.h">
+      <Filter>Source\Public\RenderAPI\DirectX12</Filter>
     </ClInclude>
-    <ClInclude Include="d3dx12.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="Source\DirectX12RendererAPI.h">
+      <Filter>Source\Public\RenderAPI\DirectX12</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Vertex.h">
+      <Filter>Source\Public\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Mesh.h">
+      <Filter>Source\Public\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Triangle.h">
+      <Filter>Source\Public\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Vector.h">
+      <Filter>Source\Public\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DirectXHelper.h">
+      <Filter>Source\Public\RenderAPI\DirectX12</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DeviceUtils.h">
+      <Filter>Source\Public\RenderAPI\DirectX12</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp">
-      <Filter>Archivos de origen</Filter>
+    <ClCompile Include="Source\dllmain.cpp">
+      <Filter>Source\Private</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Archivos de origen</Filter>
+    <ClCompile Include="Source\Renderer.cpp">
+      <Filter>Source\Private</Filter>
     </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>Archivos de origen</Filter>
+    <ClCompile Include="Source\DirectX12RendererAPI.cpp">
+      <Filter>Source\Private\RenderAPI\DirectX12</Filter>
     </ClCompile>
-    <ClCompile Include="IRenderAPI.cpp">
-      <Filter>Archivos de origen</Filter>
+    <ClCompile Include="Source\pch.cpp">
+      <Filter>Source\pch</Filter>
     </ClCompile>
-    <ClCompile Include="DirectX12RendererAPI.cpp">
-      <Filter>Archivos de origen</Filter>
+    <ClCompile Include="Source\IRenderAPI.cpp">
+      <Filter>Source\Private\RenderAPI</Filter>
     </ClCompile>
-    <ClCompile Include="RenderAPIFactory.cpp">
-      <Filter>Archivos de origen</Filter>
+    <ClCompile Include="Source\RenderAPIFactory.cpp">
+      <Filter>Source\Private\RenderAPI</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Mesh.cpp">
+      <Filter>Source\Private\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Vertex.cpp">
+      <Filter>Source\Private\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DeviceUtils.cpp">
+      <Filter>Source\Private\RenderAPI\DirectX12</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="VertexShader.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PixelShader.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\Mythforge.Renderer.vcxproj.filters" />
   </ItemGroup>
 </Project>
