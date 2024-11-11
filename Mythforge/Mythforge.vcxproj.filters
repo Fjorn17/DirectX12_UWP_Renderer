@@ -1,30 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Activos">
-      <UniqueIdentifier>aa9ad323-7a60-4cf8-aafb-823b9e0b5775</UniqueIdentifier>
-      <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
-    </Filter>
     <Image Include="Assets\LockScreenLogo.scale-200.png">
-      <Filter>Activos</Filter>
+      <Filter>Assets</Filter>
     </Image>
     <Image Include="Assets\SplashScreen.scale-200.png">
-      <Filter>Activos</Filter>
+      <Filter>Assets</Filter>
     </Image>
     <Image Include="Assets\Square150x150Logo.scale-200.png">
-      <Filter>Activos</Filter>
+      <Filter>Assets</Filter>
     </Image>
     <Image Include="Assets\Square44x44Logo.scale-200.png">
-      <Filter>Activos</Filter>
+      <Filter>Assets</Filter>
     </Image>
     <Image Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
-      <Filter>Activos</Filter>
+      <Filter>Assets</Filter>
     </Image>
     <Image Include="Assets\StoreLogo.png">
-      <Filter>Activos</Filter>
+      <Filter>Assets</Filter>
     </Image>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
-      <Filter>Activos</Filter>
+      <Filter>Assets</Filter>
     </Image>
     <Filter Include="Renderer">
       <UniqueIdentifier>{cb357796-9ebe-49bd-864c-7198541c4adf}</UniqueIdentifier>
@@ -55,6 +51,10 @@
     </Filter>
     <Filter Include="Shaders\VertexShaders">
       <UniqueIdentifier>{ab785b37-1f9e-47d8-ad15-857b3bd1ae1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>aa9ad323-7a60-4cf8-aafb-823b9e0b5775</UniqueIdentifier>
+      <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +99,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Assets\crate\crate.dds">
+      <Filter>Assets\crate</Filter>
+    </None>
+    <None Include="Assets\crate\fragile.dds">
+      <Filter>Assets\crate</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\VertexShaders\Color.hlsl">
@@ -107,5 +113,16 @@
     <FxCompile Include="Shaders\PixelShaders\Color.hlsl">
       <Filter>Shaders\PixelShaders</Filter>
     </FxCompile>
+    <FxCompile Include="Shaders\PixelShaders\TexCoord.hlsl">
+      <Filter>Shaders\PixelShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\VertexShaders\TexCoord.hlsl">
+      <Filter>Shaders\VertexShaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Assets\crate">
+      <UniqueIdentifier>{eff8ec2a-5b37-438f-84be-58f9ac051f0d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

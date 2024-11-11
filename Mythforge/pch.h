@@ -11,6 +11,7 @@
 #include <pix3.h>
 #include <DirectXColors.h>
 #include <DirectXMath.h>
+#include <DDSTextureLoader.h>
 #include <memory>
 #include <vector>
 #include <agile.h>
